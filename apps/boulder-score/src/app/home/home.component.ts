@@ -18,7 +18,7 @@ import { RouterLink } from '@angular/router';
   ],
   template: `
     <div class="flex items-center gap-4">
-      <button hlmBtn routerLink="/finals/setup">Configurer une finale amicale</button>
+      <button type="button" hlmBtn routerLink="/finals/setup">Configurer une finale amicale</button>
       <hlm-tooltip>
         <hlm-icon hlmTooltipTrigger aria-describedby="explanation on what button is" name="lucideHelpCircle" class="mr-0" />
         <span *brnTooltipContent>
