@@ -20,6 +20,10 @@
           {
             "glob": "**/*",
             "input": "apps/boulder-score/public"
+          },
+          {
+            "glob": "config.json",
+            "input": "apps/boulder-score/config"
           }
         ],
         "styles": ["apps/boulder-score/src/styles.scss"],

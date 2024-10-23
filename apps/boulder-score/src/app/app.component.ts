@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BsThemeSelectorComponent } from '@boulder-score/ui-theme-selector';
+import { ConfigService } from './shared/data-access/config.service';
 
 @Component({
   standalone: true,
@@ -12,4 +13,10 @@ import { BsThemeSelectorComponent } from '@boulder-score/ui-theme-selector';
   `,
   styles: ``
 })
-export class AppComponent {}
+export class AppComponent {
+  config = inject(ConfigService).getConfig();
+
+  constructor() {
+    console.log(this.config.apiUrl);
+  }
+}
