@@ -1,22 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BsThemeSelectorComponent } from '@boulder-score/ui-theme-selector';
-import { ConfigService } from './shared/data-access/config.service';
+import { BsThemeSelectorComponent } from '@boulder-score/bs-theme-selector';
+import { ThemeService } from './shared/data-access/theme.service';
 
 @Component({
   standalone: true,
   imports: [RouterModule, BsThemeSelectorComponent],
   selector: 'bs-root',
   template: `
-    <bs-theme-selector class="absolute right-8 top-6" />
+    <bs-theme-selector [theme]="themeService.theme()" (change)="themeService.themeSelected$.next($event)" class="absolute right-8 top-6" />
     <router-outlet />
   `,
   styles: ``
 })
 export class AppComponent {
-  config = inject(ConfigService).getConfig();
-
-  constructor() {
-    console.log(this.config.apiUrl);
-  }
+  themeService = inject(ThemeService);
 }

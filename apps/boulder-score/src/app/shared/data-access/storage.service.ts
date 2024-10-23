@@ -1,6 +1,6 @@
 import { Injectable, InjectionToken, PLATFORM_ID, inject } from '@angular/core';
+import { Theme } from '@boulder-score/models';
 import { of } from 'rxjs';
-import { Theme } from '../models/theme';
 
 export const LOCAL_STORAGE = new InjectionToken<Storage>('window local storage object', {
   providedIn: 'root',

@@ -1,8 +1,8 @@
 export default {
-  displayName: 'bs-theme-selector',
-  preset: '../../../jest.preset.js',
+  displayName: 'models',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/ui/ui-theme-selector',
+  coverageDirectory: '../../coverage/libs/models',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

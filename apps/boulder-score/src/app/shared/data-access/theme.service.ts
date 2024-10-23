@@ -2,8 +2,9 @@ import { computed, effect, inject, Injectable, RendererFactory2, signal } from '
 import { StorageService } from './storage.service';
 import { DOCUMENT } from '@angular/common';
 import { catchError, EMPTY, map, merge, Subject } from 'rxjs';
-import { Theme } from '../models/theme';
 import { connect } from 'ngxtension/connect';
+import { ConfigService } from './config.service';
+import { Theme } from '@boulder-score/models';
 
 type AppState = {
   theme: Theme;
@@ -18,9 +19,10 @@ export class ThemeService {
   readonly storage = inject(StorageService);
   private readonly _renderer = inject(RendererFactory2).createRenderer(null, null);
   private readonly _document = inject(DOCUMENT);
+  private readonly _theme = inject(ConfigService).getConfig().theme;
 
   private readonly appState = signal<AppState>({
-    theme: 'light',
+    theme: this._theme,
     loaded: false,
     error: null
   });

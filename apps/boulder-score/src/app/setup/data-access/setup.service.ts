@@ -11,6 +11,7 @@ import { Finalist } from '../../shared/models/finalist';
 import { moveItemInArray } from '../../shared/utils/array';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { Gender } from '../../shared/models/gender';
 
 type FinalistFormGroup<T> = {
   [P in keyof T]: (
@@ -35,7 +36,7 @@ export class SetupService {
       `Bloc Session - ${format(new Date(), 'dd MMMM yyyy', { locale: fr })}`,
       Validators.required,
     ],
-    gender: [undefined, Validators.required],
+    gender: [undefined as Gender, Validators.required],
     timePerBloc: [15, Validators.required],
     totalBlocs: [3, Validators.required],
   });

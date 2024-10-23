@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
 import {
@@ -10,7 +10,7 @@ import {
 import { provideIcons } from '@ng-icons/core';
 import { lucideMoon, lucideSun, lucideStar } from '@ng-icons/lucide';
 import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
-import { ThemeService } from '../../../../../apps/boulder-score/src/app/shared/data-access/theme.service';
+import { Theme } from '@boulder-score/models';
 
 @Component({
   selector: 'bs-theme-selector',
@@ -20,9 +20,9 @@ import { ThemeService } from '../../../../../apps/boulder-score/src/app/shared/d
   ],
   imports: [CommonModule, HlmIconComponent, HlmMenuComponent, HlmMenuGroupComponent, HlmMenuItemDirective, HlmMenuItemIconDirective, HlmMenuLabelComponent, HlmMenuSeparatorComponent, BrnMenuTriggerDirective],
   template: `
-      @if (themeService.theme() === 'light') {
+      @if (theme() === 'light') {
         <hlm-icon name="lucideSun" size="lg" class="mr-0" [brnMenuTriggerFor]="menu" />
-      } @else if (themeService.theme() === 'dark') {
+      } @else if (theme() === 'dark') {
         <hlm-icon name="lucideMoon" size="lg" class="mr-0" [brnMenuTriggerFor]="menu" />
       } @else {
         <hlm-icon name="lucideStar" size="lg" class="mr-0" [brnMenuTriggerFor]="menu" />
@@ -33,15 +33,15 @@ import { ThemeService } from '../../../../../apps/boulder-score/src/app/shared/d
         <hlm-menu-label>Thèmes</hlm-menu-label>
         <hlm-menu-separator />
         <hlm-menu-group>
-          <button hlmMenuItem (click)="themeService.themeSelected$.next('light')">
+          <button hlmMenuItem (click)="change.emit('light')">
             <hlm-icon name="lucideSun" hlmMenuIcon />
             Clair
           </button>
-          <button hlmMenuItem (click)="themeService.themeSelected$.next('dark')">
+          <button hlmMenuItem (click)="change.emit('dark')">
             <hlm-icon name="lucideMoon" hlmMenuIcon />
             Sombre
           </button>
-          <button hlmMenuItem (click)="themeService.themeSelected$.next('climbing')">
+          <button hlmMenuItem (click)="change.emit('climbing')">
             <hlm-icon name="lucideStar" hlmMenuIcon />
             Escalade
           </button>
@@ -51,5 +51,6 @@ import { ThemeService } from '../../../../../apps/boulder-score/src/app/shared/d
   `
 })
 export class BsThemeSelectorComponent {
-  readonly themeService = inject(ThemeService);
+  theme = input.required<Theme>();
+  change = output<Theme>();
 }

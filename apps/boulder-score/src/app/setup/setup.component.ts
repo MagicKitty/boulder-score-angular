@@ -1,4 +1,10 @@
-import { Component, ElementRef, inject, viewChildren } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
 import { CommonModule, JsonPipe, TitleCasePipe } from '@angular/common';
 import {
   HlmCardContentDirective,
@@ -69,6 +75,9 @@ import {
   BrnPopoverContentDirective,
   BrnPopoverTriggerDirective,
 } from '@spartan-ng/ui-popover-brain';
+import { skip } from 'rxjs';
+import { StepperComponent } from './ui/stepper.component';
+import { CdkStep, CdkStepperModule } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'bs-setup',
@@ -115,6 +124,8 @@ import {
     HlmPopoverCloseDirective,
     JsonPipe,
     TitleCasePipe,
+    StepperComponent,
+    CdkStepperModule
   ],
   providers: [
     provideIcons({
@@ -127,7 +138,20 @@ import {
     }),
   ],
   template: `
-    <div class="flex flex-col gap-4 md:gap-8 h-full">
+    <bs-stepper #cdkStepper>
+      <cdk-step><ng-template cdkStepLabel>hi</ng-template><p>sdf</p></cdk-step>
+      <cdk-step><p>red</p></cdk-step>
+
+      <!-- Previous Button -->
+      <button hlmBtn type="button" cdkStepperPrevious>Back</button>
+
+      <!-- Next Button -->
+      <button hlmBtn type="button" cdkStepperNext>Next</button>
+    </bs-stepper>
+
+    <button hlmBtn>sdlfkjsdlmfkj</button>
+
+    <!-- <div class="flex flex-col gap-4 md:gap-8 h-full w-full md:w-2/3">
       <button
         hlmBtn
         type="button"
@@ -143,9 +167,11 @@ import {
         />
       </button>
 
-      <section hlmCard>
+      <section hlmCard class="">
         <div hlmCardHeader>
-          <h1 hlmCardTitle>Configurez la finale</h1>
+          <h1 hlmCardTitle class="md:text-headline mt-4 text-lg">
+            Configurez la finale
+          </h1>
           <p hlmCardDescription>
             Configurez le déroulement de la finale et ses compétiteurs
           </p>
@@ -162,34 +188,33 @@ import {
                   hlmInput
                   formControlName="nameOfEvent"
                   placeholder="Nom *"
+                  autofocus
                   class="w-full"
                 />
               </label>
             </hlm-form-field>
 
-            <hlm-form-field>
-              <label hlmLabel>
-                Genre
-                <brn-radio-group hlm class="flex" formControlName="gender">
-                  <brn-radio
-                    hlm
-                    value="female"
-                    class="border rounded-tl-xl rounded-bl-xl p-2 mr-[-1px] h-10 w-full"
-                  >
-                    Femme
-                    <hlm-radio-indicator indicator />
-                  </brn-radio>
-                  <brn-radio
-                    hlm
-                    value="male"
-                    class="border rounded-tr-xl rounded-br-xl p-2 h-10 w-full"
-                  >
-                    Homme
-                    <hlm-radio-indicator indicator />
-                  </brn-radio>
-                </brn-radio-group>
-              </label>
-            </hlm-form-field>
+            <label hlmLabel>
+              Genre
+              <brn-radio-group hlm class="flex pt-1" formControlName="gender">
+                <brn-radio
+                  hlm
+                  value="female"
+                  class="border rounded-tl-xl rounded-bl-xl p-2 mr-[-1px] h-10 w-full"
+                >
+                  Femme
+                  <hlm-radio-indicator indicator />
+                </brn-radio>
+                <brn-radio
+                  hlm
+                  value="male"
+                  class="border rounded-tr-xl rounded-br-xl p-2 h-10 w-full"
+                >
+                  Homme
+                  <hlm-radio-indicator indicator />
+                </brn-radio>
+              </brn-radio-group>
+            </label>
 
             <hlm-form-field class="w-fit">
               <label hlmLabel>
@@ -336,24 +361,24 @@ import {
                       >
                         <h4 class="font-medium pl-2">Actions</h4>
                         <button
-                            hlmBtn
-                            type="button"
-                            variant="ghost"
-                            brnPopoverClose
-                            class="flex items-center gap-4"
-                            [disabled]="
-                              setupService.formGroup.controls.finalists
-                                .length <= 1
-                            "
-                            (click)="setupService.deleteFinalist$.next($index)"
-                          >
-                            <span class="text-red-400">Supprimer</span>
-                            <hlm-icon
-                              name="lucideTrash"
-                              hlmMenuIcon
-                              class="text-red-400"
-                            />
-                          </button>
+                          hlmBtn
+                          type="button"
+                          variant="ghost"
+                          brnPopoverClose
+                          class="flex items-center gap-4"
+                          [disabled]="
+                            setupService.formGroup.controls.finalists.length <=
+                            1
+                          "
+                          (click)="setupService.deleteFinalist$.next($index)"
+                        >
+                          <span class="text-red-400">Supprimer</span>
+                          <hlm-icon
+                            name="lucideTrash"
+                            hlmMenuIcon
+                            class="text-red-400"
+                          />
+                        </button>
                       </div>
                     </brn-popover>
                   </div>
@@ -382,21 +407,22 @@ import {
           </form>
         </div>
       </section>
-    </div>
 
-    <hlm-toaster />
-    <button
-      hlmBtn
-      type="submit"
-      (click)="setupService.formGroup.invalid && showToast()"
-      routerLink="../during"
-    >
-      Valider pour une durée totale de 60'
-    </button>
+      <hlm-toaster />
+      <button
+        hlmBtn
+        type="submit"
+        (click)="setupService.formGroup.invalid && showToast()"
+        routerLink="../during"
+        class="mt-auto"
+      >
+        Valider pour une durée totale de 60'
+      </button>
+    </div> -->
   `,
   styles: `
     :host {
-      @apply h-full flex flex-col content-between gap-4 md:gap-8;
+      @apply h-full flex flex-col items-center content-between gap-4 md:gap-8;
     }
     
       /* Chrome, Safari, Edge, Opera */
@@ -417,9 +443,12 @@ export default class SetupComponent {
   private readonly firstNameInputs =
     viewChildren<ElementRef<HTMLInputElement>>('firstNameInput');
 
+  private readonly cdkStepper =
+    viewChild<ElementRef<StepperComponent>>('cdkStepper');
+
   constructor() {
     toObservable(this.firstNameInputs)
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(), skip(1))
       .subscribe({
         next: (firstNameInputs) =>
           !!firstNameInputs.length &&

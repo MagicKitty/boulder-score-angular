@@ -15,9 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@boulder-score/ui-theme-selector": [
-        "libs/ui/ui-theme-selector/src/index.ts"
-      ],
+      "@boulder-score/models": ["libs/models/src/index.ts"],
+      "@boulder-score/bs-theme-selector": ["libs/ui/bs-theme-selector/src/index.ts"],
       "@spartan-ng/ui-accordion-helm": [
         "libs/ui/ui-accordion-helm/src/index.ts"
       ],

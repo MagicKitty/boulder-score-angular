@@ -1,9 +1,10 @@
+import { ThemeSchema } from '@boulder-score/models';
 import { z } from 'zod';
+
 // Define the schema for the config
-const schema = z.object({
+const partialConfig = z.object({
   companyName: z.string(),
   apiUrl: z.string(),
-  theme: z.string(),
   locale: z.string(),
   features: z.object({
     enableChat: z.boolean(),
@@ -13,10 +14,16 @@ const schema = z.object({
   supportEmail: z.string(),
 });
 
+const theme = z.object({
+  theme: ThemeSchema
+})
+
+const fullConfig = partialConfig.merge(theme);
+
 // Infer the type from the schema
-export type ConfigDTO = z.infer<typeof schema>;
+export type ConfigDTO = z.infer<typeof fullConfig>;
 
 // Parse the config if matches the schema
 export function parseDTO(source: unknown) {
-  return schema.safeParse(source);
+  return fullConfig.safeParse(source);
 }

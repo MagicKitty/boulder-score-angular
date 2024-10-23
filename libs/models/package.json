@@ -1,5 +1,5 @@
 {
-  "name": "@boulder-score/bs-theme-selector",
+  "name": "@boulder-score/models",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
