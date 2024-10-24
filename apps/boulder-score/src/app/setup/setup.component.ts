@@ -144,12 +144,6 @@ import { CdkStep, CdkStepLabel, CdkStepperModule, CdkStepperNext, CdkStepperPrev
     <bs-stepper #cdkStepper>
       <cdk-step><ng-template cdkStepLabel>hi</ng-template><p>sdf</p></cdk-step>
       <cdk-step><p>red</p></cdk-step>
-
-      <!-- Previous Button -->
-      <button hlmBtn type="button" cdkStepperPrevious>Back</button>
-
-      <!-- Next Button -->
-      <button hlmBtn type="button" cdkStepperNext>Next</button>
     </bs-stepper>
 
     <button hlmBtn>sdlfkjsdlmfkj</button>
@@ -427,7 +421,7 @@ import { CdkStep, CdkStepLabel, CdkStepperModule, CdkStepperNext, CdkStepperPrev
     :host {
       @apply h-full flex flex-col items-center content-between gap-4 md:gap-8;
     }
-    
+
       /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
