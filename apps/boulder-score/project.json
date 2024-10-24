@@ -18,6 +18,14 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           {
+            "glob": "netlify.toml",
+            "input": "."
+          },
+          {
+            "glob": "_redirects",
+            "input": "."
+          },
+          {
             "glob": "**/*",
             "input": "apps/boulder-score/public"
           },

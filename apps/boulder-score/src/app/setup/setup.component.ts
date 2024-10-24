@@ -77,7 +77,7 @@ import {
 } from '@spartan-ng/ui-popover-brain';
 import { skip } from 'rxjs';
 import { StepperComponent } from './ui/stepper.component';
-import { CdkStep, CdkStepperModule } from '@angular/cdk/stepper';
+import { CdkStep, CdkStepLabel, CdkStepperModule, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'bs-setup',
@@ -125,7 +125,10 @@ import { CdkStep, CdkStepperModule } from '@angular/cdk/stepper';
     JsonPipe,
     TitleCasePipe,
     StepperComponent,
-    CdkStepperModule
+    CdkStepperModule,
+    CdkStepLabel,
+    CdkStepperNext,
+    CdkStepperPrevious,
   ],
   providers: [
     provideIcons({
